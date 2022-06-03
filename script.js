@@ -1,33 +1,7 @@
-function game() {
-    let score = 0
+// Game Logic
 
-    for (let i = 0; i < 5; i++) {
-        let player = playerInput()
-        if (player === null) {
-            console.log('No input was entered, quitting the game')
-            return
-        }
-        let computer = computerPlay()
-
-        let result = playRound(player, computer)
-        printRoundResult(result, convertToResult(player), convertToResult(computer))
-        if (result === 'WIN') {
-            score++
-        } else if (result === 'LOSE') {
-            score--
-        } else {
-            // It's a tie, so we do nothing
-        }
-    }
-
-    if (score > 0) {
-        console.log('You win!')
-    } else if (score < 0) {
-        console.log('You lose!')
-    } else {
-        console.log('The final result is a tie!')
-    }
-}
+let playerScore = 0;
+let computerScore = 0;
 
 function playRound(player, computer) {
     player = player.toUpperCase()
@@ -51,10 +25,6 @@ function playRound(player, computer) {
     return win ? 'WIN' : 'LOSE'
 }
 
-function playerInput() {
-    return prompt('Rock, Paper, or Scissors?', '')
-}
-
 function computerPlay() {
     let play = ''
     let rand = Math.floor(Math.random() * 3) + 1
@@ -72,21 +42,119 @@ function computerPlay() {
     return play
 }
 
+function isGameOver() {
+    return playerScore === 5 || computerScore === 5;
+}
+
 // Helper functions
-function convertToResult(s) {
+
+function toUpperFirstLetter(s) {
     s = s.toLowerCase()
     return s.charAt(0).toUpperCase() + s.slice(1)
 }
 
-function printRoundResult(s, play, comp) {
-    if (s === 'WIN') {
-        console.log('You win! ' + play + ' beats ' + comp)
-    } else if (s === 'LOSE') {
-        console.log('You lose! ' + comp + ' beats ' + play)
-    } else {
-        console.log("It's a tie! Nobody wins, but nobody loses either")
+function convertToIcon(input) {
+    switch (input) {
+        case 'ROCK':
+            return '\u270A';
+        case 'PAPER':
+            return '\u270B';
+        case 'SCISSORS':
+            return '\u270C';
     }
 }
 
-// run the game
-game()
+// UI variables and functions
+
+const btnRock = document.querySelector('#rock');
+const btnPaper = document.querySelector('#paper');
+const btnScissors = document.querySelector('#scissors');
+const btnRestart = document.querySelector('#final-btn');
+const txtResult = document.querySelector('#round-result');
+const txtResultDesc = document.querySelector('#result-desc');
+const icoPScore = document.querySelector('#player-choice');
+const icoCScore = document.querySelector('#computer-choice');
+const txtPScore = document.querySelector('#player-score');
+const txtCScore = document.querySelector('#computer-score');
+const txtFinal = document.querySelector('#final-text');
+const modal = document.querySelector('.modal');
+
+function handleInput(player) {
+    const computer = computerPlay();
+    const result = playRound(player, computer);
+    updateResults(result, player, computer);
+
+    if (isGameOver()) {
+        openModal();
+    }
+}
+
+function updateResults(s, play, comp) {
+    const playResult = toUpperFirstLetter(play);
+    const compResult = toUpperFirstLetter(comp);
+
+    if (s === 'WIN') {
+        playerScore++;
+        txtResult.textContent = 'You Win!';
+        txtResultDesc.textContent = playResult + ' beats ' + compResult;
+    } else if (s === 'LOSE') {
+        computerScore++;
+        txtResult.textContent = 'You Lose!';
+        txtResultDesc.textContent = compResult + ' beats ' + playResult; 
+    } else {
+        txtResult.textContent = "It's a Tie!";
+        txtResultDesc.textContent = 'You and the Computer chose the same'
+    }
+
+    icoPScore.textContent = convertToIcon(play);
+    icoCScore.textContent = convertToIcon(comp);
+
+    txtPScore.textContent = `Player: ${playerScore}`;
+    txtCScore.textContent = `Computer: ${computerScore}`;
+}
+
+function resetResults() {
+    txtResult.textContent = 'Choose wisely...';
+    txtResultDesc.textContent = "It's first to 5 points";
+    icoPScore.textContent = '?';
+    icoCScore.textContent = '?';
+    txtPScore.textContent = `Player: ${playerScore}`;
+    txtCScore.textContent = `Computer: ${computerScore}`;
+}
+
+function keyPress(e) {
+    if (e.keyCode === 82) {
+        // Rock
+        handleInput('ROCK');
+    } else if (e.keyCode === 80) {
+        // Paper
+        handleInput('PAPER');
+    } else if (e.keyCode === 83) {
+        // Scissors
+        handleInput('SCISSORS');
+    } else {
+        return;
+    }
+}
+
+function openModal() {
+    txtFinal.textContent = playerScore > computerScore ? 'You Win!' : 'You Lose!';
+    modal.classList.add('active');
+}
+
+function closeModal() {
+    modal.classList.remove('active');
+}
+
+function restart(e) {
+    playerScore = 0;
+    computerScore = 0;
+    resetResults();
+    closeModal();
+}
+
+btnRock.addEventListener('click', () => handleInput('ROCK'));
+btnPaper.addEventListener('click', () => handleInput('PAPER'));
+btnScissors.addEventListener('click', () => handleInput('SCISSORS'));
+btnRestart.addEventListener('click', restart);
+window.addEventListener('keydown', keyPress);

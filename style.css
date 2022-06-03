@@ -1,0 +1,157 @@
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  font-family: Roboto, sans-serif;
+}
+
+h1,
+h3,
+h5,
+p {
+  margin: 0;
+  padding: 0;
+  color: #eeeeee;
+}
+
+h1 {
+  font-size: 8vh;
+}
+
+h3 {
+  font-size: 3vh;
+}
+
+p {
+  font-size: 2vh;
+}
+
+button {
+  width: 200px;
+  height: 200px;
+  font-size: 80pt;
+  color: #eeeeee;
+  background-color: #00adb5;
+  border: none;
+  border-radius: 12px;
+}
+
+button:hover {
+  background-color: #5bb1b5;
+  cursor: pointer;
+}
+
+.header {
+  display: flex;
+  background-color: #222831;
+  padding: 2em;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  background-color: #393e46;
+  padding: 2em 0em 4em 0em;
+  gap: 10px;
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.results {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin: 15px 0px;
+}
+
+.result,
+.btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.score {
+  display: flex;
+  width: 200px;
+  height: 200px;
+  border: 2px dashed #eeeeee;
+  border-radius: 8px;
+  color: #eeeeee;
+  justify-content: center;
+  align-items: center;
+  font-size: 80pt;
+}
+
+.btn-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  flex: 1;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #222831;
+  padding: 1.5em;
+}
+
+.modal {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000000;
+  background-color: rgba(0, 0, 0, 0.6);
+  transition: 250ms ease-in-out;
+}
+
+.modal.active {
+  display: flex;
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  padding: 40px;
+  border-radius: 12px;
+  background-color: #393e46;
+}
+
+#final-text {
+  font-size: 40pt;
+  font-weight: bold;
+}
+
+#final-btn {
+  width: 100%;
+  height: auto;
+  font-size: 20pt;
+  padding: 15px 30px;
+}
+

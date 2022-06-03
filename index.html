@@ -4,9 +4,60 @@
 <head>
   <title>Rock Paper Scissors</title>
   <meta charset="UTF-8">
+  <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
+  <!-- Header -->
+  <div class="header">
+    <h1>Rock Paper Scissors</h1>
+  </div>
+
+  <!-- Content -->
+  <div class="content">
+    <div class="intro">
+      <h3 id="round-result">Choose wisely...</h3>
+      <p id="result-desc">It's first to 5 points</p>
+    </div>
+    <div class="results">
+      <div class="result">
+        <div class="score" id="player-choice">?</div>
+        <p id="player-score">Player: 0</p>
+      </div>
+      <div class="result">
+        <div class="score" id="computer-choice">?</div>
+        <p id="computer-score">Computer: 0</p>
+      </div>
+    </div>
+    <div class="btn-container">
+      <div class="btn">
+        <button id="rock">&#x270A</button>
+        <p>Rock</p>
+      </div>
+      <div class="btn">
+        <button id="paper">&#x270B</button>
+        <p>Paper</p>
+      </div>
+      <div class="btn">
+        <button id="scissors">&#x270C</button>
+        <p>Scissors</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <h5>Copyright &copy; Piralysis 2022</h5>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal">
+    <div class="modal-content">
+      <p id="final-text">Placeholder</p>
+      <button id="final-btn">Play again?</button>
+    </div>
+  </div>
+
   <script src="script.js"></script>
 </body>
 
